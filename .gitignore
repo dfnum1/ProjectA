@@ -1,2 +1,9 @@
 /*/*.vsconfig
 /*/.vs
+/Client/Project/*.sln
+/Client/Project/.vs
+/Client/Project/Binaries
+/Client/Project/Intermediate
+/Client/Project/Saved
+/Client/Project/DerivedDataCache
+/Client/Project/.vsconfig
