@@ -1,4 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "ActorAnimationData.h"
+#include "GameCoreDefs.h"
+
+namespace gameNS
+{
+}

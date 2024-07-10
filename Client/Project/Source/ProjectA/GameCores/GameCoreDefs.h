@@ -3,7 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameCoreDef.generated.h"
 
 namespace gameNS
 {

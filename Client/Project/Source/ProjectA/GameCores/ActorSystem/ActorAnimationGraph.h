@@ -3,11 +3,10 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "ProjectA/GameCores/GameCoreDefs.h"
+#include "ActorAnimationData.h"
 namespace gameNS
 {
-	struct FAnimationData;
-	struct FAnimationQueue;
-
 	typedef TMap<FString, FAnimationData*>	tAnimationMap;
 	typedef TMap<int, FAnimationData*>	tAnimationIdMap;
 
@@ -21,8 +20,7 @@ namespace gameNS
 
 		bool					_bTriggered;
 
-		sTriggerParam() :_bTriggered(false), _fTime(0.f), _fDurtion(0.f)
-		{}
+		sTriggerParam();
 	};
 
 	typedef TMultiMap<int, sTriggerParam>		tActorEventMap;//key-id
@@ -36,7 +34,7 @@ namespace gameNS
 
 		void			BindMesh(USkeletalMeshComponent* pMesh);
 		void			BindActor(AActor* pActor);
-		AActor*			GetActor();
+		AActor* GetActor();
 
 		void			OnTick(float DeltaTime);
 
@@ -54,14 +52,14 @@ namespace gameNS
 		void			AddEvent(const FString& Name, float fTriggerTime, const TArray<FString>& Param);
 		void			TriggerEvent(const FString& Name, const TArray<FString>& vParam);
 	private:
-		AActor*							m_pActorMe;
-		USkeletalMeshComponent*			m_pSkeletalMeshComponent;
-		USkeletalMeshComponent*			m_vAvatarMesh[EAvatarType::eNum];
+		AActor* m_pActorMe;
+		USkeletalMeshComponent* m_pSkeletalMeshComponent;
+		USkeletalMeshComponent* m_vAvatarMesh[(int)EAvatarType::eNum];
 
 		tAnimationMap					m_mAnimation;
 		tAnimationIdMap					m_mAnimationId;
 
 		tActorEventMap					m_mTriggerEvent;
 	};
-
 }
+

@@ -3,10 +3,10 @@
 
 #include "ActorAnimationGraph.h"
 #include "ActorAnimationData.h"
-#include "GameCoreDef.h"
 
 namespace gameNS
 {
+	sTriggerParam::sTriggerParam() :_bTriggered(false), _fTime(0.f), _fDurtion(0.f) {}
 	//----------------------------------------------------
 	ActorAnimationGraph::ActorAnimationGraph()
 		: m_pActorMe(nullptr)
@@ -27,8 +27,7 @@ namespace gameNS
 	//----------------------------------------------------
 	ActorAnimationGraph::~ActorAnimationGraph()
 	{
-		m_m1Animation.Empty();
-		m_m3Animation.Empty();
+		m_mAnimation.Empty();
 	}
 	//----------------------------------------------------
 	void ActorAnimationGraph::BindMesh(USkeletalMeshComponent* pMesh)
@@ -40,12 +39,12 @@ namespace gameNS
 	{
 		m_pActorMe = pActor;
 
-// 		AGameUserCharacter* pChar = Cast<AGameUserCharacter>(pActor);
-// 		if (pChar)
-// 		{
-// 			for (int i = 0; i < (int)EAvatarType::Num; ++i)
-// 				m_vAvatarMesh[i] = pChar->m_vAvatarMesh[i];
-// 		}
+		// 		AGameUserCharacter* pChar = Cast<AGameUserCharacter>(pActor);
+		// 		if (pChar)
+		// 		{
+		// 			for (int i = 0; i < (int)EAvatarType::Num; ++i)
+		// 				m_vAvatarMesh[i] = pChar->m_vAvatarMesh[i];
+		// 		}
 	}
 	//----------------------------------------------------
 	AActor* ActorAnimationGraph::GetActor()
@@ -86,8 +85,8 @@ namespace gameNS
 	//----------------------------------------------------
 	FAnimationData* ActorAnimationGraph::GetAnimationById(int Id)
 	{
-		if (m_mAnimation.Find(Id))
-			return m_mAnimation[Id];
+		if (m_mAnimationId.Find(Id))
+			return m_mAnimationId[Id];
 		return nullptr;
 	}
 	//----------------------------------------------------
@@ -145,28 +144,28 @@ namespace gameNS
 		if (vParam.Num() <= 0 || Name.IsEmpty())
 			return;
 
-// 		if (Name.Equals("SoundLocation"))
-// 		{
-// 			USoundCue* SoundBattle = (USoundCue*)UGameBlueprintFunctionLibrary::LoadObjectFromPath(*vParam[0]);
-// 			if (SoundBattle)
-// 				UGameplayStatics::PlaySoundAtLocation(m_pActorMe, SoundBattle, m_pActorMe->GetActorLocation());
-// 		}
-// 		else if (Name.Equals("SoundAttach"))
-// 		{
-// 			USoundCue* SoundBattle = (USoundCue*)UGameBlueprintFunctionLibrary::LoadObjectFromPath(*vParam[0]);
-// 			if (SoundBattle)
-// 			{
-// 				UGameplayStatics::SpawnSoundAttached(SoundBattle, m_pActorMe->GetRootComponent());
-// 			}
-// 		}
-// 		else if (Name.Equals("Sound2D"))
-// 		{
-// 			USoundCue* SoundBattle = (USoundCue*)UGameBlueprintFunctionLibrary::LoadObjectFromPath(*vParam[0]);
-// 			if (SoundBattle)
-// 			{
-// 				UGameplayStatics::SpawnSound2D(m_pActorMe, SoundBattle);
-// 			}
-// 		}
+		// 		if (Name.Equals("SoundLocation"))
+		// 		{
+		// 			USoundCue* SoundBattle = (USoundCue*)UGameBlueprintFunctionLibrary::LoadObjectFromPath(*vParam[0]);
+		// 			if (SoundBattle)
+		// 				UGameplayStatics::PlaySoundAtLocation(m_pActorMe, SoundBattle, m_pActorMe->GetActorLocation());
+		// 		}
+		// 		else if (Name.Equals("SoundAttach"))
+		// 		{
+		// 			USoundCue* SoundBattle = (USoundCue*)UGameBlueprintFunctionLibrary::LoadObjectFromPath(*vParam[0]);
+		// 			if (SoundBattle)
+		// 			{
+		// 				UGameplayStatics::SpawnSoundAttached(SoundBattle, m_pActorMe->GetRootComponent());
+		// 			}
+		// 		}
+		// 		else if (Name.Equals("Sound2D"))
+		// 		{
+		// 			USoundCue* SoundBattle = (USoundCue*)UGameBlueprintFunctionLibrary::LoadObjectFromPath(*vParam[0]);
+		// 			if (SoundBattle)
+		// 			{
+		// 				UGameplayStatics::SpawnSound2D(m_pActorMe, SoundBattle);
+		// 			}
+		// 		}
 	}
 	//----------------------------------------------------
 	float ActorAnimationGraph::PlayAnimation(const FAnimationData* pData)
@@ -185,7 +184,7 @@ namespace gameNS
 			}
 			else if (pData->AnimAsset)
 			{
-				fDuration = pData->AnimAsset->GetMaxCurrentTime();
+				fDuration = pData->AnimAsset->GetPlayLength();
 				m_pSkeletalMeshComponent->PlayAnimation(pData->AnimAsset, pData->nLoop == 0);
 			}
 			else
@@ -203,7 +202,7 @@ namespace gameNS
 				}
 				else if (pData->AnimAsset)
 				{
-					fDuration = FMath::Max(pData->AnimAsset->GetMaxCurrentTime(), fDuration);
+					fDuration = FMath::Max(pData->AnimAsset->GetPlayLength(), fDuration);
 					m_vAvatarMesh[i]->PlayAnimation(pData->AnimAsset, pData->nLoop == 0);
 				}
 			}
@@ -305,4 +304,3 @@ namespace gameNS
 		}
 	}
 }
-
