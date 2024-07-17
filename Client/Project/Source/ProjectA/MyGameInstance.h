@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "MyGameModule.h"
 #include "GameSingleton.h"
+#include "GameDatas/DataManager.h"
 
 namespace gameNS
 {
@@ -18,6 +19,9 @@ namespace gameNS
 
 	public:
 		virtual void Init(UGameInstance* pInstance) override;
+
+	private:
+		DataManager* m_pDataMgr;
 	};
 
 }

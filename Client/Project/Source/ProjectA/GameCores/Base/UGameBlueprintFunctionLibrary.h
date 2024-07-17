@@ -47,7 +47,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "GameGolabFunction")
 		static void				HideUI(int UIType);
 
-private:
+public:
 	template<typename ObjClass>
 	static FORCEINLINE ObjClass* LoadObjFormPath(const FName& Path)
 	{

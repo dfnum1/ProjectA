@@ -10,7 +10,8 @@ public class ProjectA : ModuleRules
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
         PublicIncludePaths.Add(Path.Combine(ModuleDirectory, "GameBase"));
         PublicIncludePaths.Add(Path.Combine(ModuleDirectory, "GameCores"));
+        PublicIncludePaths.Add(Path.Combine(ModuleDirectory, "GameDatas"));
 
-        PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "NavigationSystem", "AIModule", "Niagara", "EnhancedInput" });
+        PublicDependencyModuleNames.AddRange(new string[] { "GameplayAbilities", "GameplayTags", "GameplayTasks", "Core", "CoreUObject", "Engine", "InputCore", "NavigationSystem", "AIModule", "Niagara", "EnhancedInput" });
     }
 }
